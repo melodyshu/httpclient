@@ -1,0 +1,14 @@
+private void sendMail(String emails,String subject,String htmlContent) throws Exception {
+        HttpClient httpClient = HttpClientBuilder.create().build();
+        String url="http://xxxxxx.com/mailManage/sendMail.action";
+        HttpPost post=new HttpPost(url);
+        post.setHeader("Content-Type","application/x-www-form-urlencoded");
+        List<NameValuePair> formparams = new ArrayList<NameValuePair>();
+        formparams.add(new BasicNameValuePair("addresses",emails));
+        formparams.add(new BasicNameValuePair("subject",subject));
+        formparams.add(new BasicNameValuePair("htmlContent",htmlContent));
+        UrlEncodedFormEntity entity = new UrlEncodedFormEntity(formparams, "UTF-8");
+        post.setEntity(entity);
+        httpClient.execute(post);
+        post.releaseConnection();
+    }
